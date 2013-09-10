@@ -1,5 +1,5 @@
-Logging To Logentries from Java
-==============================
+Logentries Java libraries
+=========================
 
 Logentries currently supports logging from Java using the following logging libraries:
 

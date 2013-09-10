@@ -11,13 +11,13 @@
     <artifactId>logentries-logback</artifactId>
     <packaging>jar</packaging>
     <name>Logentries Logback</name>
-    <description>Contains the core Logentries Java client</description>
+    <description>The core Logentries Java client</description>
 
     <dependencies>
         <dependency>
-            <groupId>coml.logentries</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>logentries-core</artifactId>
-            <version>1.1.20-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>

@@ -1,5 +1,5 @@
-LOGBACK
-==========
+logentries-logback
+==================
 
 To configure logback, you will need to perform the following:
 

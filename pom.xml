@@ -16,10 +16,16 @@
     <description>Contains logback and log4j appenders that will send log data to Logentries</description>
     <url>https://github.com/logentries/le_java</url>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <modules>
         <module>logentries-core</module>
         <module>logentries-log4j</module>
         <module>logentries-logback</module>
+        <module>logentries-jenkins</module>
+        <module>logentries-android</module>
     </modules>
     <licenses>
         <license>
@@ -34,6 +40,11 @@
         <url>https://github.com/logentries/le_java</url>
     </scm>
     <developers>
+        <developer>
+            <id>MarkLC</id>
+            <name>Mark Lacomber</name>
+            <email>marklacomber@gmail.com</email>
+        </developer>
         <developer>
             <id>MarkLC</id>
             <name>Mark Lacomber</name>

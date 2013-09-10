@@ -15,9 +15,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>coml.logentries</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>logentries-core</artifactId>
-            <version>1.1.20-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>

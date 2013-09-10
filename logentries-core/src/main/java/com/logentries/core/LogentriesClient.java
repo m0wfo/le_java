@@ -1,4 +1,4 @@
-package com.logentries.net;
+package com.logentries.core;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -1,12 +1,10 @@
-package com.logentries.net;
+package com.logentries.core;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
-
-import org.apache.log4j.helpers.LogLog;
 
 /**
  * Logentries Asynchronous Logger for integration with Java logging frameworks.
@@ -309,7 +307,8 @@ public class AsyncLogger {
 	 */
 	void dbg( String msg) {
 		if (debug)
-			LogLog.error( LE + msg);
+            return;
+//			LogLog.error( LE + msg);
 	}
 
 	/**

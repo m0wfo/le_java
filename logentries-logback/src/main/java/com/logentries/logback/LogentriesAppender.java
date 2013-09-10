@@ -8,8 +8,7 @@ import ch.qos.logback.classic.spi.StackTraceElementProxy;
 import ch.qos.logback.core.AppenderBase;
 import ch.qos.logback.core.Layout;
 import ch.qos.logback.core.net.SyslogConstants;
-
-import com.logentries.net.AsyncLogger;
+import com.logentries.core.AsyncLogger;
 
 /**
 * Logentries appender for logback.

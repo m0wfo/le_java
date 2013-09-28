@@ -11,7 +11,7 @@
     <artifactId>logentries-android</artifactId>
     <packaging>jar</packaging>
 
-    <name>logentries-android</name>
+    <name>Logentries Android client</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>

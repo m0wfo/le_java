@@ -10,7 +10,7 @@
 
     <artifactId>logentries-log4j</artifactId>
     <packaging>jar</packaging>
-    <name>Logentries log4j</name>
+    <name>Logentries log4j appender</name>
     <description>Logentries appender for the log4j logging framework</description>
 
     <dependencies>

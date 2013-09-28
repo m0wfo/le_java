@@ -11,16 +11,16 @@ import javax.net.ssl.SSLSocketFactory;
 /**
  * Client for sending messages to Logentries via HTTP PUT or Token-Based Logging
  * Supports SSL/TLS
- * 
+ *
  * @author Mark Lacomber
- * 
+ *
  */
 public class LogentriesClient
 {
 	/*
 	 * Constants
 	 */
-	
+
 	/** Logentries API server address for Token-based input. */
 	private static final String LE_TOKEN_API = "api.logentries.com";
 	/** Logentries API server address for HTTP PUT input. */
@@ -33,13 +33,13 @@ public class LogentriesClient
 	private static final int LE_TOKEN_PORT = 10000;
 	/** Port number for TLS Token logging on Logentries API server. */
 	private static final int LE_TOKEN_TLS_PORT = 20000;
-	
+
 	final SSLSocketFactory ssl_factory;
 	private boolean ssl_choice = false;
 	private boolean http_choice = false;
 	private Socket socket;
 	private OutputStream stream;
-	
+
 	public LogentriesClient(boolean httpPut, boolean ssl)
 	{
 		ssl_factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
@@ -59,7 +59,7 @@ public class LogentriesClient
 	{
 		return http_choice ? LE_HTTP_API : LE_TOKEN_API;
 	}
-	
+
 	public void connect() throws UnknownHostException, IOException
 	{
 		// Open physical connection
@@ -76,10 +76,10 @@ public class LogentriesClient
 		}else{
 			socket = new Socket( getAddress(), getPort() );
 		}
-		
+
 		this.stream = socket.getOutputStream();
 	}
-	
+
 	public void write(byte[] buffer, int offset, int length) throws IOException
 	{
 		if(this.stream == null){
@@ -88,7 +88,7 @@ public class LogentriesClient
 		this.stream.write(buffer, offset, length);
 		this.stream.flush();
 	}
-	
+
 	public void close()
 	{
 		try{
@@ -98,7 +98,7 @@ public class LogentriesClient
 				this.socket = null;
 			}
 		}catch(Exception e){
-			
+
 		}
 	}
 }

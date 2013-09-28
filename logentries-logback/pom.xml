@@ -10,7 +10,7 @@
 
     <artifactId>logentries-logback</artifactId>
     <packaging>jar</packaging>
-    <name>Logentries Logback</name>
+    <name>Logentries Logback appender</name>
     <description>The core Logentries Java client</description>
 
     <dependencies>

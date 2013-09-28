@@ -13,7 +13,10 @@
     <packaging>pom</packaging>
     <name>Logentries Parent</name>
     <version>1.1.20-SNAPSHOT</version>
-    <description>Contains logback and log4j appenders that will send log data to Logentries</description>
+    <description>
+		Java libraries for logging frameworks and general applicatoin development
+		that let you send data to Logentries.
+	</description>
     <url>https://github.com/logentries/le_java</url>
 
     <properties>
@@ -24,7 +27,6 @@
         <module>logentries-core</module>
         <module>logentries-log4j</module>
         <module>logentries-logback</module>
-        <module>logentries-jenkins</module>
         <module>logentries-android</module>
     </modules>
     <licenses>
@@ -39,18 +41,23 @@
         <developerConnection>scm:git:git@github.com:logentries/le_java.git</developerConnection>
         <url>https://github.com/logentries/le_java</url>
     </scm>
-    <developers>
-        <developer>
-            <id>MarkLC</id>
-            <name>Mark Lacomber</name>
-            <email>marklacomber@gmail.com</email>
-        </developer>
-        <developer>
-            <id>MarkLC</id>
-            <name>Mark Lacomber</name>
-            <email>marklacomber@gmail.com</email>
-        </developer>
-    </developers>
+	<developers>
+		<developer>
+			<id>vilda</id>
+			<name>Viliam Holub</name>
+			<email>viliam@logentries.com</email>
+		</developer>
+		<developer>
+			<id>MarkLC</id>
+			<name>Mark Lacomber</name>
+			<email>mark@logentries.com</email>
+		</developer>
+		<developer>
+			<id>m0wfo</id>
+			<name>Chris Mowforth</name>
+			<email>chris@logentries.com</email>
+		</developer>
+	</developers>
 
     <build>
         <plugins>

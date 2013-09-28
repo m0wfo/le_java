@@ -1,7 +1,8 @@
-package com.logentries.net;
+package com.logentries;
 
+import com.logentries.core.LogentriesClient;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class LogentriesClientTest {
 
@@ -17,11 +18,11 @@ public class LogentriesClientTest {
 	{
 		// HttpPut = true,  SSL = false
 		LogentriesClient client = new LogentriesClient(true,false);
-		assertEquals("api.logentries.com should be used for HTTP PUT", client.getAddress(), API_HTTP_SERVER); 
+		assertEquals("api.logentries.com should be used for HTTP PUT", client.getAddress(), API_HTTP_SERVER);
 
 		// HttpPut = false, SSL = false
 		LogentriesClient client2 = new LogentriesClient(false,false);
-		assertEquals("data.logentries.com should be used for Token TCP", client2.getAddress(), API_TOKEN_SERVER);
+		assertEquals("api.logentries.com should be used for Token TCP", client2.getAddress(), API_TOKEN_SERVER);
 	}
 
 	@Test

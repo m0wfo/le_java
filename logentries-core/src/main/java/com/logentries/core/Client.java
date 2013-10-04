@@ -8,11 +8,13 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.HttpRequestEncoder;
+import io.netty.handler.ssl.SslHandler;
 import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
+import javax.net.ssl.SSLEngine;
 
 /**
  * A Logentries client implementation.
@@ -55,6 +57,7 @@ public class Client implements IClient {
         Preconditions.checkState(!opened.get()); // Should never have been opened
 
         final ClientOutboundHandler handler = new ClientOutboundHandler();
+		final FailureHandler fail = new FailureHandler(bootstrap, ENDPOINT, port);
 
         bootstrap.group(group)
          .channel(NioSocketChannel.class)
@@ -65,25 +68,39 @@ public class Client implements IClient {
 
             @Override
             protected void initChannel(SocketChannel c) throws Exception {
-                c.pipeline().addFirst(new ReconnectHandler(bootstrap, ENDPOINT, port));
+                c.pipeline().addFirst(new ReconnectHandler(fail));
                 c.pipeline().addFirst(new ClientOutboundHandler());
                 if (useHTTP) {
                     c.pipeline().addFirst(new HttpHandler(token, host, key));
                     c.pipeline().addFirst(new HttpRequestEncoder());
                 }
+                if (useSSL) {
+                    SSLEngine engine = SSLContextProvider.getContext().createSSLEngine();
+                    engine.setUseClientMode(true);
+                    c.pipeline().addFirst(new SslHandler(engine));
+                }
             }
         });
 
-        ChannelFuture future = null;
-        while (future == null) {
-            try {
-                future = bootstrap.connect(ENDPOINT, port).sync();
-                if (!future.isSuccess()) future = null;
-            } catch (Exception ex) {
-                Thread.sleep(1000);
-                System.out.println("reconnecting...");
+        bootstrap.connect(ENDPOINT, port)
+                .addListener(fail.failureHandlingFuture())
+                .addListener(new ChannelFutureListener() {
+
+            @Override
+            public void operationComplete(ChannelFuture f) throws Exception {
+                channel = f.channel();
             }
-        }
+        });
+//        ChannelFuture future = null;
+//        while (future == null) {
+//            try {
+//                future = bootstrap.connect(ENDPOINT, port).sync();
+//                if (!future.isSuccess()) future = null;
+//            } catch (Exception ex) {
+//                Thread.sleep(100);
+//                System.out.println("reconnecting...");
+//            }
+//        }
 
         opened.set(true);
     }
@@ -104,7 +121,7 @@ public class Client implements IClient {
 
     private int getPort() {
         if (useHTTP) {
-            return useSSL ? 443 : 10000;
+            return useSSL ? 443 : 80;
         } else {
             return useSSL ? 20000 : 10000;
         }

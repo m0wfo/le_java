@@ -18,6 +18,7 @@ class ClientOutboundHandler extends ChannelOutboundHandlerAdapter {
         if (msg instanceof String) {
             ByteBuf buf = Unpooled.copiedBuffer((String) msg, Charsets.UTF_8);
             ctx.write(buf, promise);
+            return;
         }
         ctx.write(msg, promise);
     }

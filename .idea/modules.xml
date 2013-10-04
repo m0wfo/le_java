@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/logentries-android/logentries-android.iml" filepath="$PROJECT_DIR$/logentries-android/logentries-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/logentries-core/logentries-core.iml" filepath="$PROJECT_DIR$/logentries-core/logentries-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/logentries-log4j/logentries-log4j.iml" filepath="$PROJECT_DIR$/logentries-log4j/logentries-log4j.iml" />
+      <module fileurl="file://$PROJECT_DIR$/logentries-logback/logentries-logback.iml" filepath="$PROJECT_DIR$/logentries-logback/logentries-logback.iml" />
+      <module fileurl="file://$PROJECT_DIR$/logentries-parent.iml" filepath="$PROJECT_DIR$/logentries-parent.iml" />
+    </modules>
+  </component>
+</project>
+

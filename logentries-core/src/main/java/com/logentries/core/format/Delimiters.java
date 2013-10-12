@@ -1,11 +1,10 @@
-package com.logentries.core;
+package com.logentries.core.format;
 
 /**
  * Platform and Logentries-specific delimiters used for event formatting.
  *
  * <p>Java client libraries should use these constants in custom formatters.</p>
  *
- * @author chris
  */
 public final class Delimiters {
 

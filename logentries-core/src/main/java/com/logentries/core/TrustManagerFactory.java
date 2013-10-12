@@ -12,7 +12,6 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  *
- * @author chris
  */
 class TrustManagerFactory extends TrustManagerFactorySpi {
 

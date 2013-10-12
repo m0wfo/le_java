@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -14,9 +15,9 @@
     <name>Logentries Parent</name>
     <version>1.1.20-SNAPSHOT</version>
     <description>
-		Java libraries for logging frameworks and general applicatoin development
-		that let you send data to Logentries.
-	</description>
+        Java libraries for logging frameworks and general applicatoin development
+        that let you send data to Logentries.
+    </description>
     <url>https://github.com/logentries/le_java</url>
 
     <properties>
@@ -41,23 +42,23 @@
         <developerConnection>scm:git:git@github.com:logentries/le_java.git</developerConnection>
         <url>https://github.com/logentries/le_java</url>
     </scm>
-	<developers>
-		<developer>
-			<id>vilda</id>
-			<name>Viliam Holub</name>
-			<email>viliam@logentries.com</email>
-		</developer>
-		<developer>
-			<id>MarkLC</id>
-			<name>Mark Lacomber</name>
-			<email>mark@logentries.com</email>
-		</developer>
-		<developer>
-			<id>m0wfo</id>
-			<name>Chris Mowforth</name>
-			<email>chris@logentries.com</email>
-		</developer>
-	</developers>
+    <developers>
+        <developer>
+            <id>vilda</id>
+            <name>Viliam Holub</name>
+            <email>viliam@logentries.com</email>
+        </developer>
+        <developer>
+            <id>MarkLC</id>
+            <name>Mark Lacomber</name>
+            <email>mark@logentries.com</email>
+        </developer>
+        <developer>
+            <id>m0wfo</id>
+            <name>Chris Mowforth</name>
+            <email>chris@logentries.com</email>
+        </developer>
+    </developers>
 
     <build>
         <plugins>

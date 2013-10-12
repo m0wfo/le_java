@@ -22,7 +22,6 @@ import javax.net.ssl.SSLEngine;
  * <p>The current implementation dispatches events on a single IO thread. Calls
  * to {@link #write(java.lang.String)} are non-blocking.</p>
  *
- * @author Chris Mowforth
  */
 @ThreadSafe
 public class Client implements IClient {
@@ -30,34 +29,39 @@ public class Client implements IClient {
     /** Logentries API server. */
     public static String ENDPOINT = "localhost";
 
+	// Config-related members
     private final String token, host, key;
     private final boolean useSSL, useHTTP;
     private final int port;
 
+	// I/O-related members
     private final EventLoopGroup group;
     private final AtomicBoolean opened;
-
     private final Bootstrap bootstrap;
+    private final FailureManager failureManager;
     private Channel channel;
 
-    private Client(String token, String host, String key, boolean useSSL, boolean useHTTP) {
+    private Client(int port, String token, String host, String key, boolean useSSL, boolean useHTTP) {
         this.token = token;
         this.host = host;
         this.key = key;
         this.useSSL = useSSL;
         this.useHTTP = useHTTP;
-        this.port = getPort();
+        this.port = port;
         this.group = new NioEventLoopGroup(1);
         this.opened = new AtomicBoolean(false);
         this.bootstrap = new Bootstrap();
+        this.failureManager = new FailureManager(bootstrap, ENDPOINT, port);
     }
 
+	/**
+	 * TODO: blocking behaviour?
+	 * @throws IOException
+	 * @throws IllegalStateException
+	 */
     @Override
-    public void open() throws Exception {
+    public void open() throws IOException, IllegalStateException {
         Preconditions.checkState(!opened.get()); // Should never have been opened
-
-        final ClientOutboundHandler handler = new ClientOutboundHandler();
-		final FailureHandler fail = new FailureHandler(bootstrap, ENDPOINT, port);
 
         bootstrap.group(group)
          .channel(NioSocketChannel.class)
@@ -68,7 +72,7 @@ public class Client implements IClient {
 
             @Override
             protected void initChannel(SocketChannel c) throws Exception {
-                c.pipeline().addFirst(new ReconnectHandler(fail));
+                c.pipeline().addFirst(new ReconnectHandler(failureManager));
                 c.pipeline().addFirst(new ClientOutboundHandler());
                 if (useHTTP) {
                     c.pipeline().addFirst(new HttpHandler(token, host, key));
@@ -82,15 +86,21 @@ public class Client implements IClient {
             }
         });
 
-        bootstrap.connect(ENDPOINT, port)
-                .addListener(fail.failureHandlingFuture())
-                .addListener(new ChannelFutureListener() {
+        ChannelFuture future;
+
+        try {
+            future = bootstrap.connect(ENDPOINT, port)
+                    .addListener(failureManager.failureHandlingFuture())
+                    .sync()
+                    .addListener(new ChannelFutureListener() {
 
             @Override
             public void operationComplete(ChannelFuture f) throws Exception {
                 channel = f.channel();
             }
         });
+        } catch (Exception ex) {}
+
 //        ChannelFuture future = null;
 //        while (future == null) {
 //            try {
@@ -119,15 +129,7 @@ public class Client implements IClient {
         group.shutdownGracefully();
     }
 
-    private int getPort() {
-        if (useHTTP) {
-            return useSSL ? 443 : 80;
-        } else {
-            return useSSL ? 20000 : 10000;
-        }
-    }
-
-    public static class Builder {
+    public static final class Builder {
 
         private String token, host, key;
         private boolean useSSL, useHTTP;
@@ -141,27 +143,27 @@ public class Client implements IClient {
             this.useSSL = true;
         }
 
-        public Builder withToken(@Nonnull String token) {
-            Preconditions.checkArgument(!Strings.isNullOrEmpty(token));
-            Preconditions.checkArgument(isValidUUID(token));
+        public Builder withToken(@Nonnull String logToken) {
+            Preconditions.checkArgument(!Strings.isNullOrEmpty(logToken));
+            Preconditions.checkArgument(isValidUUID(logToken));
 
-            this.token = token;
+            this.token = logToken;
             return this;
         }
 
-        public Builder withAccountKey(@Nonnull String key) {
-            Preconditions.checkArgument(!Strings.isNullOrEmpty(token));
-            Preconditions.checkArgument(isValidUUID(key));
+        public Builder withAccountKey(@Nonnull String accountKey) {
+            Preconditions.checkArgument(!Strings.isNullOrEmpty(accountKey));
+            Preconditions.checkArgument(isValidUUID(accountKey));
 
-            this.key = key;
+            this.key = accountKey;
             return this;
         }
 
-        public Builder withHostKey(@Nonnull String host) {
-            Preconditions.checkArgument(!Strings.isNullOrEmpty(token));
-            Preconditions.checkArgument(isValidUUID(key));
+        public Builder withHostKey(@Nonnull String hostKey) {
+            Preconditions.checkArgument(!Strings.isNullOrEmpty(hostKey));
+            Preconditions.checkArgument(isValidUUID(hostKey));
 
-            this.host = host;
+            this.host = hostKey;
             return this;
         }
 
@@ -176,18 +178,28 @@ public class Client implements IClient {
         }
 
         public Client build() {
-            Preconditions.checkArgument(!Strings.isNullOrEmpty(token));
-            if (useHTTP && key == null) {
-                throw new IllegalArgumentException("You must specify an account key to use HTTP");
-            }
+            Preconditions.checkArgument(!Strings.isNullOrEmpty(token),
+                    "You must specify a log token.");
+            Preconditions.checkArgument(!(useHTTP && key == null),
+                    "You must specify an account key to use the HTTP input.");
+            Preconditions.checkArgument(!(useHTTP && host == null),
+                    "You must specify a host key to use the HTTP input.");
 
-            return new Client(token, host, key, useSSL, useHTTP);
+            return new Client(getPort(), token, host, key, useSSL, useHTTP);
         }
 
         private boolean isValidUUID(String uuid) {
             Preconditions.checkArgument(!Strings.isNullOrEmpty(uuid));
             UUID u = UUID.fromString(uuid);
             return u.toString().equals(uuid);
+        }
+
+        private int getPort() {
+            if (useHTTP) {
+                return useSSL ? 443 : 80;
+            } else {
+                return useSSL ? 20000 : 10000;
+            }
         }
     }
 }

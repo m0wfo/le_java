@@ -13,36 +13,38 @@ import java.util.concurrent.TimeUnit;
  *
  * @author chris
  */
-public class FailureHandler {
+public class FailureManager {
 
     private static final Timer TIMER = new HashedWheelTimer();
+
     private final Bootstrap clientBootstrap;
     private final String endpoint;
     private final int port;
+	private final Timer timer;
 
-    public FailureHandler(Bootstrap bootstrap, String endpoint, int port) {
+	public FailureManager(Bootstrap bootstrap, String endpoint, int port) {
+        this(bootstrap, endpoint, port, TIMER);
+    }
+
+    public FailureManager(Bootstrap bootstrap, String endpoint, int port, Timer timer) {
         this.clientBootstrap = bootstrap;
         this.endpoint = endpoint;
         this.port = port;
+		this.timer = timer;
     }
 
     public void handleFailure() {
-        TIMER.newTimeout(new TimerTask() {
+        timer.newTimeout(new TimerTask() {
 
             @Override
             public void run(Timeout tmt) throws Exception {
-                clientBootstrap.connect(endpoint, port).addListener(new ChannelFutureListener() {
-
-                    @Override
-                    public void operationComplete(ChannelFuture f) throws Exception {
-                        if (!f.isSuccess()) {
-                            System.out.println("err");
-                            handleFailure();
-                        }
-                    }
-                });
+                try {
+                    clientBootstrap.connect(endpoint, port).addListener(failureHandlingFuture());
+                } catch (Exception e) {
+                    // what here?
+                }
             }
-        }, 10, TimeUnit.MILLISECONDS);
+        }, 1, TimeUnit.SECONDS);
     }
 
     public ChannelFutureListener failureHandlingFuture() {

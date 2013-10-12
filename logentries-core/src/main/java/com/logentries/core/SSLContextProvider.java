@@ -3,8 +3,7 @@ package com.logentries.core;
 import javax.net.ssl.SSLContext;
 
 /**
- *
- * @author chris
+ * A client-mode only SSL context provider.
  */
 class SSLContextProvider {
 

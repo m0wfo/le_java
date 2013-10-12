@@ -5,13 +5,12 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * Handles connection retry behaviour.
- * @author chris
  */
-public class ReconnectHandler extends ChannelInboundHandlerAdapter {
+class ReconnectHandler extends ChannelInboundHandlerAdapter {
 
-    private final FailureHandler handler;
+    private final FailureManager handler;
 
-    public ReconnectHandler(FailureHandler handler) {
+    public ReconnectHandler(FailureManager handler) {
         this.handler = handler;
     }
 

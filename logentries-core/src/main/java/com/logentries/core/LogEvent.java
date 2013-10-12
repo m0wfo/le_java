@@ -4,7 +4,6 @@ import com.lmax.disruptor.EventFactory;
 
 /**
  *
- * @author chris
  */
 public final class LogEvent {
 

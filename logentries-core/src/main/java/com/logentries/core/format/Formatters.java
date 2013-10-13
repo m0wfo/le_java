@@ -13,6 +13,8 @@ import javax.annotation.concurrent.ThreadSafe;
 public class Formatters {
 
     public static String joinWithUnicodeLineBreak(String[] lines) {
+        Preconditions.checkArgument(lines != null);
+
         Joiner joiner = Joiner.on(Delimiters.LE_NEWLINE);
         return joiner.join(lines);
     }
@@ -29,7 +31,7 @@ public class Formatters {
 	 * @return a newline-terminated string
 	 */
     public static String appendNewlineIfNeeded(@Nonnull String input) {
-		Preconditions.checkState(!Strings.isNullOrEmpty(input));
+		Preconditions.checkArgument(!Strings.isNullOrEmpty(input));
 
         if (!input.substring(input.length() - 1).equals(Delimiters.NEWLINE)) {
             return input + Delimiters.NEWLINE;

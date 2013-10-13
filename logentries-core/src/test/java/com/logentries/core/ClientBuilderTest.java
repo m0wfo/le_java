@@ -137,13 +137,13 @@ public class ClientBuilderTest {
                 .usingHTTP(true)
                 .build();
         } catch (IllegalArgumentException ex) {
-            Assert.assertEquals(ex.getMessage(), "You must specify an account key to use HTTP");
+            Assert.assertEquals(ex.getMessage(), "You must specify an account key to use the HTTP input.");
             return;
         }
         Assert.fail("Should throw exception");
     }
 
-        /**
+    /**
      * Using HTTP without specifying host token should throw an exception.
      */
     @Test
@@ -155,7 +155,7 @@ public class ClientBuilderTest {
                 .withAccountKey(uuid)
                 .build();
         } catch (IllegalArgumentException ex) {
-            Assert.assertEquals(ex.getMessage(), "You must specify a host key to use HTTP");
+            Assert.assertEquals(ex.getMessage(), "You must specify a host key to use the HTTP input.");
             return;
         }
         Assert.fail("Should throw exception");

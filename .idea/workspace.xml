@@ -2,23 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77a5f8ef-5649-457b-a2b9-cec6171882eb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logentries-android/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logentries-log4j/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logentries-logback/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/FailureManagerTest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/FailureHandlerTest.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/FailureHandler.java" afterPath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/FailureManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/AsyncLogger.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/LogentriesClient.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/Client.java" afterPath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientOutboundHandlerTest.java" afterPath="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientOutboundHandlerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/format/Delimiters.java" afterPath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/format/Delimiters.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/EventFormatHandler.java" afterPath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/EventFormatHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/LogEvent.java" afterPath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/LogEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-log4j/src/main/java/com/logentries/log4j/LogentriesAppender.java" afterPath="$PROJECT_DIR$/logentries-log4j/src/main/java/com/logentries/log4j/LogentriesAppender.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-log4j/src/test/java/com/logentries/log4j/LogentriesAppenderTest.java" afterPath="$PROJECT_DIR$/logentries-log4j/src/test/java/com/logentries/log4j/LogentriesAppenderTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientBuilderTest.java" afterPath="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientBuilderTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/FailureManager.java" afterPath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/FailureManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/IClient.java" afterPath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/IClient.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/ReconnectHandler.java" afterPath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/ReconnectHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/SSLContextProvider.java" afterPath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/SSLContextProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/TrustManagerFactory.java" afterPath="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/TrustManagerFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -28,12 +18,16 @@
     <file path="/FailureHandler.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1380917509763" ignored="false" />
     <file path="/fragment.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1380915611646" ignored="false" />
     <file path="/ClientBuilderTest.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381252284167" ignored="false" />
-    <file path="/Client.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381621480699" ignored="false" />
+    <file path="/Client.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381632384897" ignored="false" />
     <file path="/LogentriesAppender.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381252931565" ignored="false" />
-    <file path="/pom.xml" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381309001043" ignored="false" />
+    <file path="/pom.xml" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381623995905" ignored="false" />
     <file path="/TestClass.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381309195198" ignored="false" />
     <file path="/a.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381620174348" ignored="false" />
     <file path="/sample.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381620168738" ignored="false" />
+    <file path="/FailureManager.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381631664696" ignored="false" />
+    <file path="/ReconnectHandler.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381625521095" ignored="false" />
+    <file path="/ClientFuture.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381629060575" ignored="false" />
+    <file path="/IClient.java" changelist="77a5f8ef-5649-457b-a2b9-cec6171882eb" time="1381631835344" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,29 +88,40 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Client.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Client.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="186" column="0" selection-start="6255" selection-end="6255" vertical-scroll-proportion="0.81838566">
-              <folding />
+            <state line="60" column="0" selection-start="2044" selection-end="2044" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="class#Builder#0;class#Client#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientBuilderTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientBuilderTest.java">
+      <file leaf-file-name="IClient.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/IClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="32" selection-start="241" selection-end="241" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="7" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="0.1412556">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReconnectHandler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/ReconnectHandler.java">
+      <file leaf-file-name="FailureManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/FailureManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="38" selection-start="174" selection-end="174" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="38" column="0" selection-start="1237" selection-end="1237" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1957#3104#0" expanded="true" />
+                <element signature="e#2159#2588#0" expanded="true" />
+                <element signature="e#2565#2566#0" expanded="true" />
+                <element signature="e#3093#3094#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -139,21 +144,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientOutboundHandlerTest.java" />
-        <option value="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/FailureHandler.java" />
-        <option value="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientBuilderTest.java" />
-        <option value="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/FailureHandlerTest.java" />
         <option value="$PROJECT_DIR$/logentries-log4j/src/test/java/com/logentries/log4j/LogentriesAppenderTest.java" />
         <option value="$PROJECT_DIR$/logentries-log4j/src/main/java/com/logentries/log4j/LogentriesAppender.java" />
         <option value="$PROJECT_DIR$/embed/pom.xml" />
         <option value="$PROJECT_DIR$/embed/src/main/java/foo/TestClass.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/logentries-logback/pom.xml" />
         <option value="$PROJECT_DIR$/logentries-log4j/pom.xml" />
-        <option value="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/ReconnectHandler.java" />
         <option value="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/LogEvent.java" />
-        <option value="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/FailureManager.java" />
+        <option value="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientBuilderTest.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/ReconnectHandler.java" />
+        <option value="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/ClientFuture.java" />
+        <option value="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/ClientCallback.java" />
+        <option value="$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientTest.java" />
+        <option value="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/IClient.java" />
         <option value="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/Client.java" />
+        <option value="$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/FailureManager.java" />
       </list>
     </option>
   </component>
@@ -166,6 +172,16 @@
         <option name="lookForNested" value="true" />
       </MavenImportingSettings>
     </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </treeState>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
@@ -362,40 +378,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="logentries-parent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="le_java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="logentries-core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="format" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -417,6 +399,7 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit3" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -432,7 +415,7 @@
       <recent name="com.logentries.core" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ClientBuilderTest">
+  <component name="RunManager" selected="Application.App">
     <configuration default="false" name="App" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.logentries.core.App" />
       <option name="VM_PARAMETERS" />
@@ -445,7 +428,13 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="logentries-core" />
       <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -457,28 +446,6 @@
       <option name="MAIN_CLASS_NAME" value="com.logentries.core.ClientBuilderTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="ClientBuilderTest.testInvalidToken" type="JUnit" factoryName="JUnit" temporary="true">
-      <module name="logentries-core" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.logentries.core" />
-      <option name="MAIN_CLASS_NAME" value="com.logentries.core.ClientBuilderTest" />
-      <option name="METHOD_NAME" value="testInvalidToken" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -516,6 +483,28 @@
       <option name="PACKAGE_NAME" value="com.logentries.core.format" />
       <option name="MAIN_CLASS_NAME" value="com.logentries.core.format.FormattersTest" />
       <option name="METHOD_NAME" value="testAppendToEmptyStringFails" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ClientBuilderTest.testUseHTTPWithoutHost" type="JUnit" factoryName="JUnit" temporary="true">
+      <module name="logentries-core" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.logentries.core" />
+      <option name="MAIN_CLASS_NAME" value="com.logentries.core.ClientBuilderTest" />
+      <option name="METHOD_NAME" value="testUseHTTPWithoutHost" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -578,6 +567,28 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -622,17 +633,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.App" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.ClientBuilderTest" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.ClientBuilderTest.testInvalidToken" />
-      <item index="3" class="java.lang.String" itemvalue="Application.TestClass" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.FormattersTest.testAppendToEmptyStringFails" />
+      <item index="2" class="java.lang.String" itemvalue="Application.TestClass" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.FormattersTest.testAppendToEmptyStringFails" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.ClientBuilderTest.testUseHTTPWithoutHost" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.ClientBuilderTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.FormattersTest.testAppendToEmptyStringFails" />
-        <item index="2" class="java.lang.String" itemvalue="Application.TestClass" />
-        <item index="3" class="java.lang.String" itemvalue="Application.App" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.ClientBuilderTest.testInvalidToken" />
+        <item index="0" class="java.lang.String" itemvalue="Application.App" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.ClientBuilderTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.ClientBuilderTest.testUseHTTPWithoutHost" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.FormattersTest.testAppendToEmptyStringFails" />
+        <item index="4" class="java.lang.String" itemvalue="Application.TestClass" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -696,11 +707,12 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3278867" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32897604" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32897604" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22411953" sideWeight="0.67102396" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32897604" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39978212" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -709,7 +721,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -777,120 +788,112 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/logentries-logback/pom.xml">
+    <entry file="file://$PROJECT_DIR$/logentries-core/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="18" selection-start="651" selection-end="651" vertical-scroll-proportion="0.30646992">
+        <state line="3" column="0" selection-start="277" selection-end="277" vertical-scroll-proportion="0.061433446">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-log4j/pom.xml">
+    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty/4.0.0.Final/netty-4.0.0.Final.jar!/io/netty/bootstrap/Bootstrap.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="27" selection-start="992" selection-end="992" vertical-scroll-proportion="0.4903519">
+        <state line="22" column="42" selection-start="1033" selection-end="1033" vertical-scroll-proportion="-15.12">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty/4.0.0.Final/netty-4.0.0.Final.jar!/io/netty/util/Timer.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="7" column="26" selection-start="194" selection-end="194" vertical-scroll-proportion="0.12456747">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/format/FormattersTest.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty/4.0.0.Final/netty-4.0.0.Final.jar!/io/netty/util/Timeout.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="48" selection-start="505" selection-end="505" vertical-scroll-proportion="0.396861">
+        <state line="6" column="17" selection-start="160" selection-end="160" vertical-scroll-proportion="0.10380623">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientOutboundHandlerTest.java">
+    <entry file="jar:///opt/jdk1.7.0_17/src.zip!/java/util/concurrent/CyclicBarrier.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="13" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/format/Formatters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="289" selection-end="289" vertical-scroll-proportion="0.18161435">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/SSLContextProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="6" selection-start="122" selection-end="122" vertical-scroll-proportion="0.1412556">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/TrustManagerFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="6" selection-start="433" selection-end="433" vertical-scroll-proportion="0.1412556">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/LogEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="2" selection-start="77" selection-end="77" vertical-scroll-proportion="0.10089686">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/AsyncLogger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="366" selection-end="366" vertical-scroll-proportion="0.2825112">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="114" selection-end="114" vertical-scroll-proportion="0.16143498">
+        <state line="473" column="15" selection-start="17386" selection-end="17386" vertical-scroll-proportion="8.878923">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/ReconnectHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="38" selection-start="174" selection-end="174" vertical-scroll-proportion="0.0">
+        <state line="23" column="32" selection-start="626" selection-end="626" vertical-scroll-proportion="0.44394618">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/FailureManager.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty/4.0.0.Final/netty-4.0.0.Final.jar!/io/netty/channel/ChannelOutboundInvoker.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="0" selection-start="1355" selection-end="1683" vertical-scroll-proportion="0.6367713">
-          <folding>
-            <element signature="e#988#1324#0" expanded="true" />
-            <element signature="e#1313#1314#0" expanded="true" />
-            <element signature="e#1429#1676#0" expanded="true" />
-            <element signature="e#1665#1666#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/FailureManagerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="154" selection-end="154" vertical-scroll-proportion="0.16143498">
+        <state line="41" column="35" selection-start="1758" selection-end="1758" vertical-scroll-proportion="0.8304498">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientBuilderTest.java">
+    <entry file="file://$PROJECT_DIR$/logentries-core/src/test/java/com/logentries/core/ClientTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="32" selection-start="241" selection-end="241" vertical-scroll-proportion="0.0">
+        <state line="3" column="3" selection-start="37" selection-end="37" vertical-scroll-proportion="0.060538117">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty/4.0.0.Final/netty-4.0.0.Final.jar!/io/netty/util/concurrent/EventExecutorGroup.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="39" selection-start="376" selection-end="376" vertical-scroll-proportion="0.16608997">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty/4.0.0.Final/netty-4.0.0.Final.jar!/io/netty/channel/ChannelFuture.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="17" selection-start="163" selection-end="163" vertical-scroll-proportion="0.10380623">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///opt/jdk1.7.0_17/src.zip!/java/util/concurrent/Future.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="17" selection-start="2831" selection-end="2831" vertical-scroll-proportion="0.33295965">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="186" column="0" selection-start="6255" selection-end="6255" vertical-scroll-proportion="0.81838566">
-          <folding />
+        <state line="60" column="0" selection-start="2044" selection-end="2044" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#Builder#0;class#Client#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/FailureManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="0" selection-start="1237" selection-end="1237" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1957#3104#0" expanded="true" />
+            <element signature="e#2159#2588#0" expanded="true" />
+            <element signature="e#2565#2566#0" expanded="true" />
+            <element signature="e#3093#3094#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logentries-core/src/main/java/com/logentries/core/IClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="0.1412556">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

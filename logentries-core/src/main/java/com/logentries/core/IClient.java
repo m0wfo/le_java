@@ -1,12 +1,19 @@
 package com.logentries.core;
 
+import io.netty.channel.ChannelFuture;
+
 import java.io.Closeable;
+import java.util.concurrent.Future;
 import javax.annotation.Nonnull;
 
 /**
  * A client to dispatch events to Logentries.
  *
- * <p>{@link IClient} implementations are have a lifecycle and TODO</p>
+ * <p>{@link IClient} implementations are managed objects which extend {@link Closeable}.
+ * Before writing any data, they must be opened and closed at the beginning and end of
+ * their lifecycle.</p>
+ *
+ * <p></p>
  *
  * @author chris
  */
@@ -20,7 +27,7 @@ public interface IClient extends Closeable {
      *
      * @throws Exception
      */
-    public void open() throws Exception;
+    public Future open() throws Exception;
 
     /**
      * Write a string to Logentries.
@@ -33,5 +40,5 @@ public interface IClient extends Closeable {
      *
      * @param message
      */
-    public void write(@Nonnull String message);
+    public Future write(@Nonnull String message);
 }

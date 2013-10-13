@@ -15,7 +15,7 @@
     <name>Logentries Parent</name>
     <version>1.1.20-SNAPSHOT</version>
     <description>
-        Java libraries for logging frameworks and general applicatoin development
+        Java libraries for logging frameworks and general application development
         that let you send data to Logentries.
     </description>
     <url>https://github.com/logentries/le_java</url>

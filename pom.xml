@@ -29,6 +29,7 @@
         <module>logentries-log4j</module>
         <module>logentries-logback</module>
         <module>logentries-android</module>
+        <module>logentries-metrics</module>
     </modules>
     <licenses>
         <license>

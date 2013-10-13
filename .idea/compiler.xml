@@ -27,6 +27,7 @@
         <module name="logentries-core" />
         <module name="logentries-log4j" />
         <module name="logentries-logback" />
+        <module name="logentries-metrics" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -35,6 +36,7 @@
       <module name="logentries-core" target="1.6" />
       <module name="logentries-log4j" target="1.6" />
       <module name="logentries-logback" target="1.6" />
+      <module name="logentries-metrics" target="1.6" />
       <module name="logentries-parent" target="1.6" />
     </bytecodeTargetLevel>
   </component>

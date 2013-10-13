@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/logentries-core/logentries-core.iml" filepath="$PROJECT_DIR$/logentries-core/logentries-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/logentries-log4j/logentries-log4j.iml" filepath="$PROJECT_DIR$/logentries-log4j/logentries-log4j.iml" />
       <module fileurl="file://$PROJECT_DIR$/logentries-logback/logentries-logback.iml" filepath="$PROJECT_DIR$/logentries-logback/logentries-logback.iml" />
+      <module fileurl="file://$PROJECT_DIR$/logentries-metrics/logentries-metrics.iml" filepath="$PROJECT_DIR$/logentries-metrics/logentries-metrics.iml" />
       <module fileurl="file://$PROJECT_DIR$/logentries-parent.iml" filepath="$PROJECT_DIR$/logentries-parent.iml" />
     </modules>
   </component>

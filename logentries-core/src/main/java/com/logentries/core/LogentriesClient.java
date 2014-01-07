@@ -2,6 +2,7 @@ package com.logentries.core;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -10,28 +11,39 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.HttpRequestEncoder;
 import io.netty.handler.ssl.SslHandler;
 
-import java.io.IOException;
+import rx.Observable;
+import rx.util.functions.Func1;
+
+import java.io.Closeable;
 import java.util.UUID;
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+
 import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
+
 import javax.net.ssl.SSLEngine;
 
 /**
- * A Logentries client implementation.
+ * A client to send event data to Logentries.
  *
- * <p>The current implementation dispatches events on a single IO thread. Calls
- * to {@link #write(java.lang.String)} are non-blocking.</p>
+ * <p>Before writing any data, the clientmust be opened and closed afterwards.</p>
+ *
+ * <p>Additionally, the {@link #open()} and {@link #close()} methods have the
+ * {@literal @PostConstruct} and {@literal @PreDestroy} annotations to support
+ * automated lifecycle management.</p>
+ *
+ * <p>The current implementation dispatches events on a single IO thread.</p>
  *
  */
 @ThreadSafe
-public class Client implements IClient {
+public class LogentriesClient implements Closeable {
 
     /** Logentries API server. */
-    public static String ENDPOINT = "localhost";
+    public static String ENDPOINT = "data.logentries.com";
 
 	// Config-related members
     private final String token, host, key;
@@ -45,7 +57,7 @@ public class Client implements IClient {
     private final AtomicReference<Channel> channel;
     private final FailureManager failureManager;
 
-    private Client(int port, String token, String host, String key, boolean useSSL, boolean useHTTP) {
+    private LogentriesClient(int port, String token, String host, String key, boolean useSSL, boolean useHTTP) {
         this.token = token;
         this.host = host;
         this.key = key;
@@ -59,8 +71,16 @@ public class Client implements IClient {
         this.failureManager = new FailureManager(channel, bootstrap, ENDPOINT, port);
     }
 
-    @Override
-    public Future open() throws IOException, IllegalStateException {
+    /**
+     * Starts a client.
+     *
+     * <p>Called to initialize the client on start-up. Consecutive invocations
+     * are not allowed.</p>
+     *
+     * @throws IllegalStateException if the client is already open.
+     */
+    @PostConstruct
+    public Observable<LogentriesClient> open() throws IllegalStateException {
         Preconditions.checkState(!opened.get()); // Should never have been opened
 
         bootstrap.group(group)
@@ -72,6 +92,7 @@ public class Client implements IClient {
                     @Override
                     protected void initChannel(SocketChannel c) throws Exception {
                         c.pipeline().addFirst(new ReconnectHandler(failureManager));
+                        c.pipeline().addFirst(new NewlineHandler());
                         c.pipeline().addFirst(new ClientOutboundHandler());
                         if (useHTTP) {
                             c.pipeline().addFirst(new HttpHandler(token, host, key));
@@ -92,16 +113,46 @@ public class Client implements IClient {
         return failureManager.connectReliably();
     }
 
-    @Override
-    public Future write(@Nonnull String message) {
-        Preconditions.checkState(opened.get()); // Must be open already
-        Preconditions.checkArgument(!Strings.isNullOrEmpty(message), "Cannot write null string to socket.");
-
-        return channel.get().writeAndFlush(message);
+    private Observable<LogentriesClient> write(String message) {
+        final LogentriesClient me = this;
+        return Observable.from(this.channel.get().write(message))
+                .map(new Func1<Void, LogentriesClient>() {
+            @Override
+            public LogentriesClient call(Void aVoid) {
+                return me;
+            }
+        });
     }
 
-    @Override
-    public void close() throws IOException, IllegalStateException {
+    /**
+     * Write a string to Logentries.
+     *
+     * <p>Implementing classes should avoid blocking where possible, but are
+     * permitted to drop the guarantee under high load or during loss of network
+     * connectivity. TODO- reword this.</p>
+     *
+     * <p>If {@link #write(String[])} is called with a string that isn't terminated
+     * in a newline delimiter, the client will add one to ensure it appears properly
+     * in the log dashboard.</p>
+     *
+     * @param messages a log message
+     */
+    public Observable<LogentriesClient> write(@Nonnull String... messages) {
+        Preconditions.checkState(opened.get()); // Must be open already
+        Observable<LogentriesClient> writeFuture = Observable.from(this);
+        for (String message : messages) {
+            Preconditions.checkArgument(!Strings.isNullOrEmpty(message), "Null or empty string.");
+            writeFuture = writeFuture.map()
+        }
+        return writeFuture;
+    }
+
+    /**
+     * TODO document
+     * @throws IllegalStateException if the client has never been opened for writing.
+     */
+    @Override @PreDestroy
+    public void close() throws IllegalStateException {
         Preconditions.checkState(opened.get()); // Must be open already
         group.shutdownGracefully();
     }
@@ -110,11 +161,7 @@ public class Client implements IClient {
      * A builder for creating Logentries clients.
      *
      * <p>{@link Builder} provides a fluid interface for correctly
-     * configuring {@link Client}s.</p>
-     *
-     * <p>Builders can be reused; you can safely call {@link #build()} on a
-     * single instance multiple times (although in practice it's rare that
-     * you'd need to).</p>
+     * configuring {@link LogentriesClient}s.</p>
      *
      * <p>Thread safety: Builder instance methods should not be called by
      * multiple threads concurrently.</p>
@@ -168,7 +215,7 @@ public class Client implements IClient {
             return this;
         }
 
-        public Client build() {
+        public LogentriesClient build() {
             Preconditions.checkArgument(!Strings.isNullOrEmpty(token),
                     "You must specify a log token.");
             Preconditions.checkArgument(!(useHTTP && key == null),
@@ -176,7 +223,7 @@ public class Client implements IClient {
             Preconditions.checkArgument(!(useHTTP && host == null),
                     "You must specify a host key to use the HTTP input.");
 
-            return new Client(getPort(), token, host, key, useSSL, useHTTP);
+            return new LogentriesClient(getPort(), token, host, key, useSSL, useHTTP);
         }
 
         private boolean isValidUUID(String uuid) {

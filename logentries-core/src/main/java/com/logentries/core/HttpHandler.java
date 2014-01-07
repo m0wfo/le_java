@@ -10,10 +10,9 @@ import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpVersion;
 
 /**
- *
- * @author chris
+ * Wraps a log event in an HTTP request envelope.
  */
-public class HttpHandler extends ChannelOutboundHandlerAdapter {
+class HttpHandler extends ChannelOutboundHandlerAdapter {
 
     private final String token, host, key, endpoint;
 

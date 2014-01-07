@@ -2,7 +2,7 @@ package com.logentries.metrics;
 
 import com.codahale.metrics.*;
 import com.logentries.core.Client;
-import com.logentries.core.IClient;
+import com.logentries.core.LogentriesClientI;
 
 import java.util.SortedMap;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class LogentriesReporter extends ScheduledReporter {
 
-    private final IClient client;
+    private final LogentriesClientI client;
 
     private LogentriesReporter(MetricRegistry registry,
                                String logToken,

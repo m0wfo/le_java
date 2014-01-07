@@ -8,6 +8,7 @@ import io.netty.util.HashedWheelTimer;
 import io.netty.util.Timeout;
 import io.netty.util.Timer;
 import io.netty.util.TimerTask;
+import rx.Observable;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,7 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * <p>Instead of connecting directly through a {@link Bootstrap},
  * a {@link FailureManager} handles connect exceptions and
  * asynchronous retry attempts, moving connection failure logic
- * out of {@link Client} and handler code.</p>
+ * out of {@link LogentriesClient} and handler code.</p>
  */
 class FailureManager {
 
@@ -34,10 +35,9 @@ class FailureManager {
     private final int port, limit;
 	private final Timer timer;
     private final AtomicInteger timeout;
-    final AtomicReference<Timeout> task;
+    private final AtomicReference<Timeout> task;
 
-
-	public FailureManager(AtomicReference<Channel> ref, Bootstrap bootstrap, String endpoint, int port) {
+	FailureManager(AtomicReference<Channel> ref, Bootstrap bootstrap, String endpoint, int port) {
         this(ref, bootstrap, endpoint, port, TIMER, BACKOFF_THRESHOLD);
     }
 
@@ -52,7 +52,11 @@ class FailureManager {
         this.task = new AtomicReference<Timeout>();
     }
 
-    public Future connectReliably() {
+    /**
+     * TODO document
+     * @return an observable which completes when a connection is established
+     */
+    public Observable<LogentriesClient> connectReliably() {
         final CountDownLatch latch = new CountDownLatch(1);
         Timeout t = timer.newTimeout(new TimerTask() {
 
@@ -86,7 +90,7 @@ class FailureManager {
 
         task.set(t);
 
-        return new java.util.concurrent.Future() {
+        return Observable.from(new Future<LogentriesClient>() {
 
             @Override
             public boolean cancel(boolean mayInterruptIfRunning) {
@@ -104,17 +108,18 @@ class FailureManager {
             }
 
             @Override
-            public Object get() throws InterruptedException, ExecutionException {
+            public LogentriesClient get() throws InterruptedException, ExecutionException {
                 latch.await();
-                return null;
+                return null; // TODO- return a LogentriesClient
             }
 
             @Override
-            public Object get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+            public LogentriesClient get(long timeout, TimeUnit unit)
+                    throws InterruptedException, ExecutionException, TimeoutException {
                 latch.await(timeout, unit);
-                return null;
+                return null; // TODO- return a LogentriesClient
             }
-        };
+        });
     }
 
 }

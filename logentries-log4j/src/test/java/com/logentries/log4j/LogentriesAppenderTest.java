@@ -1,28 +1,35 @@
 package com.logentries.log4j;
 
 import static org.junit.Assert.assertEquals;
+
+import com.logentries.core.LogentriesClient;
+import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class LogentriesAppenderTest {
 
-    private static final String token = "some-token";
-    private static final String location = "some location";
-    private static final String accountKey = "account key";
-    private static final String facility = "DAEMON";
+    private LogentriesClient client;
+    private LogentriesAppender appender;
+    private Logger logger;
 
-    @Test
-    public void settersTest() {
-        LogentriesAppender le = new LogentriesAppender();
-        le.setHttpPut(true);
-        le.setToken(token);
-        le.setLocation(location);
-        le.setKey(accountKey);
-//		le.setSsl(true);
-//		assertEquals(le.le_async.getToken(),token);
-//		assertEquals(le.le_async.getHttpPut(),true);
-//		assertEquals(le.le_async.getKey(),accountKey);
-//		assertEquals(le.le_async.getLocation(),location);
-//		assertEquals(le.le_async.getSsl(),true);
+    @Before
+    public void setup() {
+        client = Mockito.mock(LogentriesClient.class);
+        appender = new LogentriesAppender(client);
+        logger = Logger.getLogger(LogentriesAppenderTest.class);
+        logger.addAppender(appender);
     }
 
+    @Test(expected=IllegalArgumentException.class)
+    public void testThrowsWithNoConfiguration() {
+        appender.activateOptions();
+    }
+
+    @Test
+    public void testSomething() {
+        logger.debug("message");
+
+    }
 }

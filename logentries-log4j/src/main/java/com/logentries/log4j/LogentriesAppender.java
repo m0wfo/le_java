@@ -1,10 +1,8 @@
 package com.logentries.log4j;
 
 import com.google.common.base.Throwables;
-import com.logentries.core.Client;
-import com.logentries.core.IClient;
+import com.logentries.core.LogentriesClient;
 import com.logentries.core.format.Formatters;
-import java.io.IOException;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
 
@@ -12,28 +10,25 @@ import org.apache.log4j.spi.LoggingEvent;
  * Logentries appender for log4j.
  *
  * @author Mark Lacomber
- *
  */
-public class LogentriesAppender extends AppenderSkeleton {
+public final class LogentriesAppender extends AppenderSkeleton {
 
-    private final Client.Builder builder;
+    private final LogentriesClient.Builder builder;
 
-    private IClient client;
+    private LogentriesClient client;
 
-    LogentriesAppender(IClient c) {
-        builder = Client.Builder.get();
+    LogentriesAppender(LogentriesClient c) {
+        builder = LogentriesClient.Builder.get();
         client = c;
     }
+
     public LogentriesAppender()
     {
-        builder = Client.Builder.get();
+        builder = LogentriesClient.Builder.get();
     }
 
-    /*
-     * Public methods to send log4j parameters to AsyncLogger
-     */
     /**
-     * Sets the token
+     * Sets the token.
      *
      * @param token
      */
@@ -42,40 +37,42 @@ public class LogentriesAppender extends AppenderSkeleton {
     }
 
     /**
-     *  Sets the HTTP PUT boolean flag. Send logs via HTTP PUT instead of default Token TCP
+     * Sets the HTTP PUT boolean flag. Send logs via HTTP instead of default Token TCP
      *
-     *  @param httpput HttpPut flag to set
+     * @param httpPut HttpPut flag to set
      */
-    public void setHttpPut( boolean HttpPut) {
-        builder.usingHTTP(HttpPut);
-    }
-
-    /** Sets the ACCOUNT KEY value for HTTP PUT
-     *
-     * @param account_key
-     */
-    public void setKey( String account_key)
-    {
-        builder.withAccountKey(account_key);
+    public void setHttpPut(boolean httpPut) {
+        builder.usingHTTP(httpPut);
     }
 
     /**
-     * Sets the LOCATION value for HTTP PUT
+     * Sets the ACCOUNT KEY value for HTTP PUT.
      *
-     * @param log_location
+     * @param accountKey
      */
     @Deprecated
-    public void setLocation( String log_location)
+    public void setKey(String accountKey)
+    {
+        builder.withAccountKey(accountKey);
+    }
+
+    /**
+     * Sets the LOCATION value for HTTP PUT.
+     *
+     * @param logLocation
+     */
+    @Deprecated
+    public void setLocation(String logLocation)
     {
         // no-op
     }
 
     /**
-     * Sets the SSL boolean flag
+     * Sets the SSL boolean flag.
      *
      * @param ssl
      */
-    public void setSsl( boolean ssl)
+    public void setSsl(boolean ssl)
     {
         builder.usingSSL(ssl);
     }
@@ -86,17 +83,17 @@ public class LogentriesAppender extends AppenderSkeleton {
             client = builder.build();
             client.open();
         } catch (Exception e) {
-            errorHandler.error("Unable to start Logentries client: " + e);
+            Throwables.propagate(e);
         }
     }
 
     /**
-     * Implements AppenderSkeleton Append method, handles time and format
+     * Implements AppenderSkeleton Append method, handles time and format.
      *
      * @event event to log
      */
     @Override
-    protected void append( LoggingEvent event) {
+    protected void append(LoggingEvent event) {
 
         // Render the event according to layout
         String formattedEvent = layout.format( event);
@@ -113,13 +110,13 @@ public class LogentriesAppender extends AppenderSkeleton {
     }
 
     /**
-     * Closes all connections to Logentries
+     * Closes all connections to Logentries.
      */
     @Override
     public void close() {
         try {
             client.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             String trace = Throwables.getStackTraceAsString(e);
             errorHandler.error("Unable to close Logentries client: " + trace);
         }

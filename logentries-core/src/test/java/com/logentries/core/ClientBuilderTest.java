@@ -10,12 +10,12 @@ import org.junit.Test;
  */
 public class ClientBuilderTest {
 
-    private Client.Builder builder;
+    private LogentriesClient.Builder builder;
     private String uuid;
 
     @Before
     public void setup() {
-        builder = Client.Builder.get();
+        builder = LogentriesClient.Builder.get();
         uuid = UUID.randomUUID().toString();
     }
 
@@ -42,7 +42,7 @@ public class ClientBuilderTest {
      */
     @Test
     public void testValidToken() {
-        Client client = builder.withToken(UUID.randomUUID().toString()).build();
+        LogentriesClient client = builder.withToken(UUID.randomUUID().toString()).build();
 
         Assert.assertNotNull(client);
     }
@@ -120,7 +120,7 @@ public class ClientBuilderTest {
      */
     @Test
     public void testDisableSSL() {
-        Client client = builder.withToken(uuid)
+        LogentriesClient client = builder.withToken(uuid)
                 .usingSSL(false)
                 .build();
 
@@ -133,7 +133,7 @@ public class ClientBuilderTest {
     @Test
     public void testUseHTTPWithoutAccount() {
         try {
-            Client client = builder.withToken(uuid)
+            LogentriesClient client = builder.withToken(uuid)
                 .usingHTTP(true)
                 .build();
         } catch (IllegalArgumentException ex) {
@@ -149,7 +149,7 @@ public class ClientBuilderTest {
     @Test
     public void testUseHTTPWithoutHost() {
         try {
-            Client client = builder
+            LogentriesClient client = builder
                 .withToken(uuid)
                 .usingHTTP(true)
                 .withAccountKey(uuid)

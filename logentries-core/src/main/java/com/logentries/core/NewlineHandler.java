@@ -15,27 +15,21 @@
  */
 package com.logentries.core;
 
-import com.logentries.core.format.Delimiters;
-import com.google.common.base.Charsets;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import com.logentries.core.format.Formatters;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
 import io.netty.channel.ChannelPromise;
 
 /**
- *
- * @author chris
+ * Appends a newline if needed to an incoming log event.
  */
-public class EventFormatHandler extends ChannelOutboundHandlerAdapter {
+class NewlineHandler extends ChannelOutboundHandlerAdapter {
 
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
         if (msg instanceof String) {
             String data = (String)msg;
-            data = data.trim().replace(Delimiters.NEWLINE, Delimiters.LE_NEWLINE) + Delimiters.NEWLINE;
-            ByteBuf processed = Unpooled.copiedBuffer(data, Charsets.UTF_8);
-            ctx.write(processed, promise);
+            ctx.write(Formatters.appendNewlineIfNeeded(data), promise);
         }
     }
 }

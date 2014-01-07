@@ -7,12 +7,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 /**
- *
+ * Helpers for converting log data into Logentries-compatible
+ * formatting.
  */
 @ThreadSafe
-public class Formatters {
+public final class Formatters {
 
-    public static String joinWithUnicodeLineBreak(String[] lines) {
+    public static String joinWithUnicodeLineBreak(@Nonnull String[] lines) {
         Preconditions.checkArgument(lines != null);
 
         Joiner joiner = Joiner.on(Delimiters.LE_NEWLINE);

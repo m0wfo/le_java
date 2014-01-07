@@ -48,74 +48,6 @@ public class ClientBuilderTest {
     }
 
     /**
-     * Missing account UUIDs should be rejected
-     */
-    @Test(expected=IllegalArgumentException.class)
-    public void testNullAccount() {
-        builder.withAccountKey(null);
-    }
-
-    /**
-     * Empty account UUID strings should be rejected
-     */
-    @Test(expected=IllegalArgumentException.class)
-    public void testEmptyAccountString() {
-        builder.withAccountKey("");
-    }
-
-    /**
-     * Invalid account UUIDs should be rejected.
-     */
-    @Test(expected=IllegalArgumentException.class)
-    public void testInvalidAccount() {
-        // We shouldn't have to call build;
-        // invalid UUIDs should fail fast
-        builder.withAccountKey("SOME-TOKEN");
-    }
-
-    /**
-     * Valid account UUIDs should be accepted.
-     */
-    @Test
-    public void testValidAccount() {
-        builder.withAccountKey(uuid);
-    }
-
-    /**
-     * Missing host UUIDs should be rejected
-     */
-    @Test(expected=IllegalArgumentException.class)
-    public void testNullHost() {
-        builder.withHostKey(null);
-    }
-
-    /**
-     * Empty host UUID strings should be rejected
-     */
-    @Test(expected=IllegalArgumentException.class)
-    public void testEmptyHostString() {
-        builder.withHostKey("");
-    }
-
-    /**
-     * Invalid host UUIDs should be rejected.
-     */
-    @Test(expected=IllegalArgumentException.class)
-    public void testInvalidHost() {
-        // We shouldn't have to call build;
-        // invalid UUIDs should fail fast
-        builder.withHostKey("SOME-TOKEN");
-    }
-
-    /**
-     * Valid account UUIDs should be accepted.
-     */
-    @Test
-    public void testValidHost() {
-        builder.withHostKey(uuid);
-    }
-
-    /**
      * Disabling SSL should not throw exceptions.
      */
     @Test
@@ -152,7 +84,6 @@ public class ClientBuilderTest {
             LogentriesClient client = builder
                 .withToken(uuid)
                 .usingHTTP(true)
-                .withAccountKey(uuid)
                 .build();
         } catch (IllegalArgumentException ex) {
             Assert.assertEquals(ex.getMessage(), "You must specify a host key to use the HTTP input.");

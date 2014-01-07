@@ -37,7 +37,7 @@ class FailureManager {
     private final AtomicInteger timeout;
     private final AtomicReference<Timeout> task;
 
-	FailureManager(AtomicReference<Channel> ref, Bootstrap bootstrap, String endpoint, int port) {
+    FailureManager(AtomicReference<Channel> ref, Bootstrap bootstrap, String endpoint, int port) {
         this(ref, bootstrap, endpoint, port, TIMER, BACKOFF_THRESHOLD);
     }
 
@@ -56,7 +56,7 @@ class FailureManager {
      * TODO document
      * @return an observable which completes when a connection is established
      */
-    public Observable<LogentriesClient> connectReliably() {
+    public Future connectReliably() {
         final CountDownLatch latch = new CountDownLatch(1);
         Timeout t = timer.newTimeout(new TimerTask() {
 
@@ -90,7 +90,7 @@ class FailureManager {
 
         task.set(t);
 
-        return Observable.from(new Future<LogentriesClient>() {
+        return new Future() {
 
             @Override
             public boolean cancel(boolean mayInterruptIfRunning) {
@@ -108,18 +108,18 @@ class FailureManager {
             }
 
             @Override
-            public LogentriesClient get() throws InterruptedException, ExecutionException {
+            public Void get() throws InterruptedException, ExecutionException {
                 latch.await();
-                return null; // TODO- return a LogentriesClient
+                return null;
             }
 
             @Override
-            public LogentriesClient get(long timeout, TimeUnit unit)
+            public Void get(long timeout, TimeUnit unit)
                     throws InterruptedException, ExecutionException, TimeoutException {
                 latch.await(timeout, unit);
-                return null; // TODO- return a LogentriesClient
+                return null;
             }
-        });
+        };
     }
 
 }

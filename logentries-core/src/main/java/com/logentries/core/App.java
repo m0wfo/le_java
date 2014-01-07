@@ -1,12 +1,9 @@
 package com.logentries.core;
 
 import com.google.common.base.Throwables;
-import rx.Observer;
-import rx.util.functions.Func1;
 
 /**
  *
- * @author chris
  */
 public class App {
 
@@ -20,16 +17,8 @@ public class App {
                 .build();
         try {
             c.open();
-            for (int i = 0; i < 1000; i++) {
-                c.write("Hello, world", "and again")
-                        .then(new Func1() {
-                            @Override
-                            public Object call(Object o) {
-                                return null;  //To change body of implemented methods use File | Settings | File Templates.
-                            }
-                        });
-            }
-
+            Thread.sleep(1000);
+            c.write("Hello, world");
             c.close();
         } catch(Exception e) {
             System.out.println(Throwables.getStackTraceAsString(e));

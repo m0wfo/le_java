@@ -9,25 +9,27 @@ import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpVersion;
 
+import java.util.UUID;
+
 /**
  * Wraps a log event in an HTTP request envelope.
  */
 class HttpHandler extends ChannelOutboundHandlerAdapter {
 
-    private final String token, host, key, endpoint;
+    public static final String API_LEVEL = "2";
 
-    public HttpHandler(String token, String host, String key) {
-        this.token = token;
-        this.host = host;
-        this.key = key;
-        this.endpoint = "/" + key + "/hosts/" + host + "/" + token + "/realtime=1";
+    private final String path;
+
+    public HttpHandler(UUID token) {
+        this.path = "/api/v" + API_LEVEL + "/logs/" + token;
     }
 
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
         if (msg instanceof ByteBuf) {
+            // TODO- wrap payload in JSON envelope
             ByteBuf payload = (ByteBuf) msg;
-            HttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.PUT, endpoint, payload);
+            HttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST, path, payload);
             ctx.write(request, promise);
         }
     }

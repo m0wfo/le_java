@@ -22,8 +22,7 @@ public final class LogentriesAppender extends AppenderSkeleton {
         client = c;
     }
 
-    public LogentriesAppender()
-    {
+    public LogentriesAppender() {
         builder = LogentriesClient.Builder.get();
     }
 
@@ -32,7 +31,7 @@ public final class LogentriesAppender extends AppenderSkeleton {
      *
      * @param token
      */
-    public void setToken( String token) {
+    public void setToken(String token) {
         builder.withToken(token);
     }
 
@@ -51,9 +50,8 @@ public final class LogentriesAppender extends AppenderSkeleton {
      * @param accountKey
      */
     @Deprecated
-    public void setKey(String accountKey)
-    {
-        builder.withAccountKey(accountKey);
+    public void setKey(String accountKey) {
+        // no-op
     }
 
     /**
@@ -62,8 +60,7 @@ public final class LogentriesAppender extends AppenderSkeleton {
      * @param logLocation
      */
     @Deprecated
-    public void setLocation(String logLocation)
-    {
+    public void setLocation(String logLocation) {
         // no-op
     }
 
@@ -72,19 +69,14 @@ public final class LogentriesAppender extends AppenderSkeleton {
      *
      * @param ssl
      */
-    public void setSsl(boolean ssl)
-    {
+    public void setSsl(boolean ssl) {
         builder.usingSSL(ssl);
     }
 
     @Override
     public void activateOptions() {
-        try {
-            client = builder.build();
-            client.open();
-        } catch (Exception e) {
-            Throwables.propagate(e);
-        }
+        client = builder.build();
+        client.open();
     }
 
     /**
@@ -96,7 +88,7 @@ public final class LogentriesAppender extends AppenderSkeleton {
     protected void append(LoggingEvent event) {
 
         // Render the event according to layout
-        String formattedEvent = layout.format( event);
+        String formattedEvent = layout.format(event);
 
         // Append stack trace if present
         String[] stack = event.getThrowableStrRep();

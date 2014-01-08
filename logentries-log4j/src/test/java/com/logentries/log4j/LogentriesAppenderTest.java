@@ -1,7 +1,5 @@
 package com.logentries.log4j;
 
-import static org.junit.Assert.assertEquals;
-
 import com.logentries.core.LogentriesClient;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -29,7 +27,7 @@ public class LogentriesAppenderTest {
 
     @Test
     public void testSomething() {
-        logger.debug("message");
+//        logger.debug("message");
 
     }
 }

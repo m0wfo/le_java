@@ -2,6 +2,8 @@ package com.logentries.core;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.google.common.base.Throwables;
+import com.google.common.util.concurrent.Futures;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -11,11 +13,9 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.HttpRequestEncoder;
 import io.netty.handler.ssl.SslHandler;
 
-import rx.Observable;
-import rx.util.functions.Func1;
-
 import java.io.Closeable;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -41,7 +41,7 @@ import javax.net.ssl.SSLEngine;
 public class LogentriesClient implements Closeable {
 
     /** Logentries API endpoint. */
-    public static String ENDPOINT = "localhost";
+    public static String ENDPOINT = "api.logentries.com";
     /** Logentries JS API endpoint. */
     public static String JS_ENDPOINT = "js.logentries.com";
 
@@ -64,7 +64,8 @@ public class LogentriesClient implements Closeable {
         this.apiHost = host;
         this.useSSL = useSSL;
         this.useHTTP = useHTTP;
-        this.group = new NioEventLoopGroup();
+
+		this.group = new NioEventLoopGroup();
         this.opened = new AtomicBoolean(false);
         this.bootstrap = new Bootstrap();
         this.channel = new AtomicReference<Channel>();
@@ -80,7 +81,7 @@ public class LogentriesClient implements Closeable {
      * @throws IllegalStateException if the client is already open.
      */
     @PostConstruct
-    public Future open() throws IllegalStateException {
+    public void open() throws IllegalStateException {
         Preconditions.checkState(!opened.get()); // Should never have been opened
 
         bootstrap.group(group)
@@ -91,18 +92,17 @@ public class LogentriesClient implements Closeable {
 
                     @Override
                     protected void initChannel(SocketChannel c) throws Exception {
+						if (useSSL) {
+							SSLEngine engine = SSLContextProvider.getContext().createSSLEngine();
+							engine.setUseClientMode(true);
+							c.pipeline().addFirst(new SslHandler(engine));
+						}
                         c.pipeline().addFirst(new ReconnectHandler(failureManager));
-                        c.pipeline().addFirst(new ClientOutboundHandler());
                         if (useHTTP) {
                             c.pipeline().addFirst(new HttpHandler(token));
                             c.pipeline().addFirst(new HttpRequestEncoder());
                         } else {
-                            c.pipeline().addFirst(new NewlineHandler());
-                        }
-                        if (useSSL) {
-                            SSLEngine engine = SSLContextProvider.getContext().createSSLEngine();
-                            engine.setUseClientMode(true);
-                            c.pipeline().addFirst(new SslHandler(engine));
+							c.pipeline().addFirst(new SimpleEntryHandler(token));
                         }
                     }
                 })
@@ -111,19 +111,14 @@ public class LogentriesClient implements Closeable {
         opened.set(true);
 
         // Connect through the failure manager
-        return failureManager.connectReliably();
+		try {
+			failureManager.connectReliably().get();
+		} catch (InterruptedException ex) {
+			Throwables.propagate(ex);
+		} catch (ExecutionException ex) {
+			Throwables.propagate(ex);
+		}
     }
-
-//    private Observable<LogentriesClient> write(String message) {
-//        final LogentriesClient me = this;
-//        return Observable.from(this.channel.get().write(message))
-//                .map(new Func1<Void, LogentriesClient>() {
-//            @Override
-//            public LogentriesClient call(Void aVoid) {
-//                return me;
-//            }
-//        });
-//    }
 
     /**
      * Write a string to Logentries.
@@ -143,21 +138,12 @@ public class LogentriesClient implements Closeable {
      */
     public Future write(@Nonnull String... messages) throws IllegalStateException {
         Preconditions.checkState(opened.get()); // Must be open already
-//        Observable<LogentriesClient> writeFuture = Observable.from(this);
-//        for (String message : messages) {
-//            Preconditions.checkArgument(!Strings.isNullOrEmpty(message), "Null or empty string.");
-//            writeFuture = writeFuture.map()
-//        }
-//        return writeFuture;
-//        final LogentriesClient me = this;
-//        return Observable.from(this.channel.get().write(message))
-//                .map(new Func1<Void, LogentriesClient>() {
-//                    @Override
-//                    public LogentriesClient call(Void aVoid) {
-//                        return me;
-//                    }
-//                });
-        return this.channel.get().write(messages[0]);
+		Future future = Futures.immediateFuture(null);
+		for (String message : messages) {
+			future = channel.get().write(message);
+        }
+
+        return future;
     }
 
     /**
@@ -168,7 +154,10 @@ public class LogentriesClient implements Closeable {
     @Override @PreDestroy
     public void close() throws IllegalStateException {
         Preconditions.checkState(opened.get()); // Must be open already
-        group.shutdownGracefully();
+        try {
+			group.shutdownGracefully().await();
+		} catch (InterruptedException e) {}
+		failureManager.stop();
     }
 
     /**
@@ -195,6 +184,12 @@ public class LogentriesClient implements Closeable {
             this.useSSL = true;
         }
 
+		/**
+		 * Sets the log token for the client instance.
+		 *
+		 * @param logToken string representation of a log token
+		 * @return this {@link Builder} with assigned token
+		 */
         public Builder withToken(@Nonnull String logToken) {
             Preconditions.checkArgument(isValidUUID(logToken));
 
@@ -202,11 +197,23 @@ public class LogentriesClient implements Closeable {
             return this;
         }
 
+		/**
+		 * Enable or disable transport encryption.
+		 *
+		 * <p><strong>Optional. Defaults to {@literal true}.</strong></p>
+		 * @param useSSL
+		 * @return this {@link Builder} instance
+		 */
         public Builder usingSSL(boolean useSSL) {
             this.useSSL = useSSL;
             return this;
         }
 
+		/**
+		 * TODO document
+ 		 * @param useHTTP
+		 * @return
+		 */
         public Builder usingHTTP(boolean useHTTP) {
             this.useHTTP = useHTTP;
             return this;

@@ -1,5 +1,6 @@
 package com.logentries.core.format;
 
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -40,4 +41,24 @@ public final class Formatters {
         }
         return input;
     }
+
+	/**
+	 * TODO document
+	 * @param input
+	 * @return
+	 */
+	public static String replaceNewlinesWithUnicode(@Nonnull String input) {
+		return CharMatcher.anyOf(Delimiters.NEWLINE)
+				.replaceFrom(input, Delimiters.LE_NEWLINE);
+	}
+
+	/**
+	 * TODO document
+	 * @param input
+	 * @return
+	 */
+	public static String formatLogEntry(@Nonnull String input) {
+		String newlinesReplaced = replaceNewlinesWithUnicode(input);
+		return appendNewlineIfNeeded(newlinesReplaced);
+	}
 }

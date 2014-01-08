@@ -58,37 +58,4 @@ public class ClientBuilderTest {
 
         Assert.assertNotNull(client);
     }
-
-    /**
-     * Using HTTP without specifying account token should throw an exception.
-     */
-    @Test
-    public void testUseHTTPWithoutAccount() {
-        try {
-            LogentriesClient client = builder.withToken(uuid)
-                .usingHTTP(true)
-                .build();
-        } catch (IllegalArgumentException ex) {
-            Assert.assertEquals(ex.getMessage(), "You must specify an account key to use the HTTP input.");
-            return;
-        }
-        Assert.fail("Should throw exception");
-    }
-
-    /**
-     * Using HTTP without specifying host token should throw an exception.
-     */
-    @Test
-    public void testUseHTTPWithoutHost() {
-        try {
-            LogentriesClient client = builder
-                .withToken(uuid)
-                .usingHTTP(true)
-                .build();
-        } catch (IllegalArgumentException ex) {
-            Assert.assertEquals(ex.getMessage(), "You must specify a host key to use the HTTP input.");
-            return;
-        }
-        Assert.fail("Should throw exception");
-    }
 }

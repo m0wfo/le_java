@@ -1,6 +1,8 @@
 Logentries Java libraries
 =========================
 
+[![Build Status](https://travis-ci.org/m0wfo/le_java.png?branch=chris)](https://travis-ci.org/m0wfo/le_java)
+
 Logentries currently supports logging from Java using the following logging libraries:
 
 * [Log4J](https://github.com/logentries/le_java/tree/logentries/logentries-log4j)

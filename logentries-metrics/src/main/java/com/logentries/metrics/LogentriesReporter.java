@@ -112,7 +112,7 @@ public class LogentriesReporter extends ScheduledReporter {
         this.client = client;
         this.mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        mapper.addMixInAnnotations(Sampling.class, PrettyHistogram.class);
+        mapper.addMixInAnnotations(Snapshot.class, PrettyHistogram.class);
     }
 
     @Override
@@ -151,6 +151,6 @@ public class LogentriesReporter extends ScheduledReporter {
 
     abstract class PrettyHistogram {
         @JsonIgnore
-        public abstract Snapshot getSnapshot();
+        public abstract long[] getValues();
     }
 }

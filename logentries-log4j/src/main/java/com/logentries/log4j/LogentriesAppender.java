@@ -6,6 +6,8 @@ import com.logentries.core.format.Formatters;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
 
+import java.util.UUID;
+
 /**
  * Logentries appender for log4j.
  *
@@ -18,12 +20,12 @@ public final class LogentriesAppender extends AppenderSkeleton {
     private LogentriesClient client;
 
     LogentriesAppender(LogentriesClient c) {
-        builder = LogentriesClient.Builder.get();
+        builder = LogentriesClient.builder();
         client = c;
     }
 
     public LogentriesAppender() {
-        builder = LogentriesClient.Builder.get();
+        this(null);
     }
 
     /**
@@ -32,7 +34,7 @@ public final class LogentriesAppender extends AppenderSkeleton {
      * @param token
      */
     public void setToken(String token) {
-        builder.withToken(token);
+        builder.withToken(UUID.fromString(token));
     }
 
     /**

@@ -1,9 +1,10 @@
 package com.logentries.core;
 
-import java.util.UUID;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.UUID;
 
 /**
  * Tests for verifying a correct initial state through the builder.
@@ -15,7 +16,7 @@ public class ClientBuilderTest {
 
     @Before
     public void setup() {
-        builder = LogentriesClient.Builder.get();
+        builder = LogentriesClient.builder();
         uuid = UUID.randomUUID().toString();
     }
 
@@ -34,7 +35,7 @@ public class ClientBuilderTest {
     public void testInvalidToken() {
         // We shouldn't have to call build;
         // invalid UUIDs should fail fast
-        builder.withToken("SOME-TOKEN");
+        builder.withToken(UUID.fromString("SOME-TOKEN"));
     }
 
     /**
@@ -42,7 +43,7 @@ public class ClientBuilderTest {
      */
     @Test
     public void testValidToken() {
-        LogentriesClient client = builder.withToken(UUID.randomUUID().toString()).build();
+        LogentriesClient client = builder.withToken(UUID.randomUUID()).build();
 
         Assert.assertNotNull(client);
     }
@@ -52,7 +53,7 @@ public class ClientBuilderTest {
      */
     @Test
     public void testDisableSSL() {
-        LogentriesClient client = builder.withToken(uuid)
+        LogentriesClient client = builder.withToken(UUID.fromString(uuid))
                 .usingSSL(false)
                 .build();
 

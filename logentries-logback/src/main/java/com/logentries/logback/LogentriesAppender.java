@@ -9,6 +9,8 @@ import ch.qos.logback.core.Layout;
 import ch.qos.logback.core.net.SyslogConstants;
 import com.logentries.core.LogentriesClient;
 
+import java.util.UUID;
+
 /**
  * Logentries appender for logback.
  *
@@ -42,7 +44,7 @@ public class LogentriesAppender extends AppenderBase<ILoggingEvent> {
      * Initializes asynchronous logging.
      */
     public LogentriesAppender() {
-        builder = LogentriesClient.Builder.get();
+        builder = LogentriesClient.builder();
     }
 
 	/*
@@ -58,7 +60,7 @@ public class LogentriesAppender extends AppenderBase<ILoggingEvent> {
      * @param token log token
      */
     public void setToken(String token) {
-        builder.withToken(token);
+        builder.withToken(UUID.fromString(token));
     }
 
     /**

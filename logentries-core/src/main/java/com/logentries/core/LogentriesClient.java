@@ -1,7 +1,6 @@
 package com.logentries.core;
 
 import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.Futures;
 import io.netty.bootstrap.Bootstrap;
@@ -43,7 +42,7 @@ public class LogentriesClient implements Closeable {
     /**
      * Logentries API endpoint.
      */
-    public static String ENDPOINT = "data.logentries.com";
+    public static String ENDPOINT = "api.logentries.com";
     /**
      * Logentries JS API endpoint.
      */
@@ -96,17 +95,17 @@ public class LogentriesClient implements Closeable {
 
                     @Override
                     protected void initChannel(SocketChannel c) throws Exception {
-                        if (useSSL) {
-                            SSLEngine engine = SSLContextProvider.getContext().createSSLEngine();
-                            engine.setUseClientMode(true);
-                            c.pipeline().addFirst(new SslHandler(engine));
-                        }
-                        c.pipeline().addFirst(new ReconnectHandler(failureManager));
                         if (useHTTP) {
                             c.pipeline().addFirst(new HttpHandler(token));
                             c.pipeline().addFirst(new HttpRequestEncoder());
                         } else {
                             c.pipeline().addFirst(new SimpleEntryHandler(token));
+                        }
+                        c.pipeline().addFirst(new ReconnectHandler(failureManager));
+                        if (useSSL) {
+                            SSLEngine engine = SSLContextProvider.getContext().createSSLEngine();
+                            engine.setUseClientMode(true);
+                            c.pipeline().addFirst(new SslHandler(engine));
                         }
                     }
                 })
@@ -166,6 +165,10 @@ public class LogentriesClient implements Closeable {
         failureManager.stop();
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     /**
      * A builder for creating Logentries clients.
      *
@@ -181,10 +184,6 @@ public class LogentriesClient implements Closeable {
         private UUID token;
         private boolean useSSL, useHTTP;
 
-        public static Builder get() {
-            return new Builder();
-        }
-
         private Builder() {
             this.useHTTP = false;
             this.useSSL = true;
@@ -196,10 +195,8 @@ public class LogentriesClient implements Closeable {
          * @param logToken string representation of a log token
          * @return this {@link Builder} with assigned token
          */
-        public Builder withToken(@Nonnull String logToken) {
-            Preconditions.checkArgument(isValidUUID(logToken));
-
-            this.token = UUID.fromString(logToken);
+        public Builder withToken(@Nonnull UUID logToken) {
+            this.token = logToken;
             return this;
         }
 
@@ -232,12 +229,6 @@ public class LogentriesClient implements Closeable {
                     "You must specify a log token.");
 
             return new LogentriesClient(getPort(), getEndpoint(), token, useSSL, useHTTP);
-        }
-
-        private boolean isValidUUID(String uuid) {
-            Preconditions.checkArgument(!Strings.isNullOrEmpty(uuid));
-            UUID u = UUID.fromString(uuid);
-            return u.toString().equals(uuid);
         }
 
         private int getPort() {

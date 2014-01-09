@@ -73,7 +73,12 @@ public final class Formatters {
 		return appendNewlineIfNeeded(newlinesReplaced);
 	}
 
-	private static String stringify(Object obj) {
+	/**
+	 * TODO document
+	 * @param obj
+	 * @return
+	 */
+	public static String stringify(Object obj) {
 		return stringify(obj, "", 0);
 	}
 

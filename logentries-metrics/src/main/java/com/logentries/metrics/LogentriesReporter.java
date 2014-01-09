@@ -1,12 +1,15 @@
 package com.logentries.metrics;
 
 import com.codahale.metrics.*;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
+
 import com.logentries.core.LogentriesClient;
+import com.logentries.core.format.Formatters;
 
 import java.io.IOException;
 import java.util.Map;
@@ -111,7 +114,6 @@ public class LogentriesReporter extends ScheduledReporter {
         super(registry, "logentries-reporter", filter, rateUnit, durationUnit);
         this.client = client;
         this.mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         mapper.addMixInAnnotations(Snapshot.class, PrettyHistogram.class);
     }
 
@@ -128,9 +130,11 @@ public class LogentriesReporter extends ScheduledReporter {
                     "histograms", histograms,
                     "meters", meters,
                     "timers", timers);
-            String s = mapper.writeValueAsString(instruments);
-            client.write(s);
-            int x = 0;
+            String serialized = mapper.writeValueAsString(instruments);
+			// workaround to 'flatten' JSON keys for consumption by Logentries
+			Object deserialized = mapper.readValue(serialized, Object.class);
+			String flattened = Formatters.stringify(deserialized);
+			client.write(flattened);
         } catch (IOException e) {
 
         }
